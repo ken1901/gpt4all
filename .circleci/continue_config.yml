@@ -659,7 +659,7 @@ jobs:
             mkdir -p runtimes/osx/native
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx/native/
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx/native/
-            ls -Ra gpt4all-bindings/typescript/runtimes
+            ls -Ra runtimes/
 #     - run:
 #          name: Publish to NPM
 #          command: |
