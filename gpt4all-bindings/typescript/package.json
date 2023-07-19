@@ -15,7 +15,8 @@
     "postdocs:build": "node scripts/docs.js"
   },
   "files": [
-    "src/**/*"
+    "src/**/*",
+    "runtimes/**/*"
   ],
   "dependencies": {
     "md5-file": "^5.0.0",
