@@ -17,7 +17,8 @@
   "files": [
     "src/**/*",
     "runtimes/**/*",
-    "binding.gyp"
+    "binding.gyp",
+    "prebuilds/**/*"
   ],
   "dependencies": {
     "md5-file": "^5.0.0",

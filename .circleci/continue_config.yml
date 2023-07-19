@@ -629,12 +629,65 @@ jobs:
             dotnet nuget push ./Gpt4All/bin/Release/Gpt4All.*.nupkg -s $NUGET_URL -k $NUGET_TOKEN --skip-duplicate
       - store_artifacts:
           path: gpt4all-bindings/csharp/Gpt4All/bin/Release
+
+  build-nodejs-linux: 
+    docker: 
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: "18.16"
+      - run: node --version
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn prebuild
+      - persist_to_workspace:
+          root: gpt4all-bindings
+          paths:
+            - typescript/prebuilds/linux-x64/*.node
+  build-nodejs-macos: 
+    docker: 
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: "18.16"
+      - run: node --version
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn prebuild
+      - persist_to_workspace:
+          root: gpt4all-bindings
+          paths:
+            - typescript/prebuilds/osx-x64/*.node
+  build-nodejs-windows: 
+    docker: 
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: "18.16"
+      - run: node --version
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn prebuild
+      - persist_to_workspace:
+          root: gpt4all-bindings
+          paths:
+            - typescript/prebuilds/win-x64/*.node
+
   prepare-npm-pkg:
     docker: 
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/gpt4all-backend
+          at: /tmp/*
       - checkout
       - node/install:
           install-yarn: true
@@ -654,17 +707,21 @@ jobs:
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
             cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
+            cp /tmp/gpt4all-bindings/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
             mkdir -p runtimes/linux-x64/native 
             cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
+            cp /tmp/gpt4all-bindings/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
             mkdir -p runtimes/osx-x64/native
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx-x64/native/
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx-x64/native/
+            cp /tmp/gpt4all-bindings/typescript/prebuilds/osx-x64/**/* prebuilds/osx-x64/    
             ls -Ra runtimes
-      - run:
-          command: |
-            cd gpt4all-bindings/typescript
-            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            npm publish --access public --tag alpha
+            ls -Ra prebuilds
+#      - run:
+#          command: |
+#            cd gpt4all-bindings/typescript
+#            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+#            npm publish --access public --tag alpha
 
 workflows:
   version: 2
@@ -770,6 +827,7 @@ workflows:
               only:
           requires:
             - hold
+
       # NodeJs Jobs 
       - prepare-npm-pkg: 
           filters:
@@ -777,9 +835,32 @@ workflows:
               only:
           requires:
             - npm-hold
+            - build-nodejs-linux
+            - build-nodejs-windows
+            - build-nodejs-macos
+      - build-nodejs-linux:
+          filters:
+            branches:
+              only:
+          requires:
+            - npm-hold
             - build-bindings-backend-linux
-            - build-bindings-backend-windows-msvc
+      - build-nodejs-windows:
+          filters:
+            branches:
+              only:
+          requires:
+            - npm-hold
+            - build-bindings-backend-windows_msvc
+      - build-nodejs-macos:
+          filters:
+            branches:
+              only:
+          requires:
+            - npm-hold
             - build-bindings-backend-macos
+
+
       # CSharp Jobs
       - build-csharp-linux:
           filters:
