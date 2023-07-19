@@ -640,9 +640,12 @@ jobs:
           node-version: "18.16"
       - run: node --version
       - node/install-packages:
+          app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
       - run:
-          command: yarn prebuild
+          command: | 
+            cd gpt4all-bindings/typescript
+            yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
@@ -657,9 +660,12 @@ jobs:
           node-version: "18.16"
       - run: node --version
       - node/install-packages:
+          app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
       - run:
-          command: yarn prebuild
+          command: | 
+            cd gpt4all-bindings/typescript
+            yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
@@ -674,13 +680,16 @@ jobs:
           node-version: "18.16"
       - run: node --version
       - node/install-packages:
+          app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
       - run:
-          command: yarn prebuild
+          command: |
+            cd gpt4all-bindings/typescript
+            yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
-            - typescript/prebuilds/win-x64/*.node
+            - typescript/prebuilds/win32-x64/*.node
 
   prepare-npm-pkg:
     docker: 
@@ -717,11 +726,11 @@ jobs:
             cp /tmp/gpt4all-bindings/typescript/prebuilds/osx-x64/**/* prebuilds/osx-x64/    
             ls -Ra runtimes
             ls -Ra prebuilds
-#      - run:
-#          command: |
-#            cd gpt4all-bindings/typescript
-#            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-#            npm publish --access public --tag alpha
+      - run:
+          command: |
+            cd gpt4all-bindings/typescript
+            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            npm publish --access public --tag alpha
 
 workflows:
   version: 2
