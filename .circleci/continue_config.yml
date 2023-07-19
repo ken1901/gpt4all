@@ -851,7 +851,7 @@ workflows:
               only:
           requires:
             - npm-hold
-            - build-bindings-backend-windows_msvc
+            - build-bindings-backend-windows-msvc
       - build-nodejs-macos:
           filters:
             branches:
