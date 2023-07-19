@@ -662,14 +662,13 @@ jobs:
       - node/install-packages:
           app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
-      - run:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
-            - typescript/prebuilds/osx-x64/*.node
+            - typescript/prebuilds/darwin-*/*.node
   build-nodejs-windows: 
     docker: 
       - image: cimg/base:stable
@@ -682,10 +681,6 @@ jobs:
       - node/install-packages:
           app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
-      - run:
-          command: |
-            cd gpt4all-bindings/typescript
-            yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
@@ -696,7 +691,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/*
+          at: /tmp/gpt4all-*
       - checkout
       - node/install:
           install-yarn: true
@@ -717,13 +712,20 @@ jobs:
             mkdir -p runtimes/win32-x64/native
             cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
             cp /tmp/gpt4all-bindings/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
+
             mkdir -p runtimes/linux-x64/native 
             cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
             cp /tmp/gpt4all-bindings/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
-            mkdir -p runtimes/osx-x64/native
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx-x64/native/
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx-x64/native/
-            cp /tmp/gpt4all-bindings/typescript/prebuilds/osx-x64/**/* prebuilds/osx-x64/    
+
+            mkdir -p runtimes/darwin-x64/native
+            cp /tmp/gpt4all-backend/runtimes/darwin-x64/*-*.dylib runtimes/darwin-x64/native/
+            cp /tmp/gpt4all-backend/runtimes/darwin-x64/*.metal runtimes/darwin-x64/native/
+            cp /tmp/gpt4all-bindings/typescript/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
+
+            mkdir -p runtimes/darwin-arm64/native
+            cp /tmp/gpt4all-backend/runtimes/darwin-arm64/*.metal runtimes/darwin-arm64/native/
+            cp /tmp/gpt4all-bindings/typescript/prebuilds/darwin-arm64/**/* prebuilds/darwin-arm64/    
+
             ls -Ra runtimes
             ls -Ra prebuilds
       - run:
