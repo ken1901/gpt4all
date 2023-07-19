@@ -176,8 +176,6 @@ async function retrieveModel (
     if (!foundModel) {
         throw Error(`Model "${modelName}" is not available.`);
     }
-    const urlFromJson = foundModel.url;
-    
     //todo  
     if (retrieveOptions.verbose) {
         console.log(`Downloading ${modelName}...`);
@@ -186,7 +184,7 @@ async function retrieveModel (
     const downloadController = downloadModel(modelName, {
         modelPath: retrieveOptions.modelPath,
         debug: retrieveOptions.verbose,
-        url: urlFromJson
+        url: foundModel.url
     });
 
     const downloadPath = await downloadController.promise();
