@@ -662,6 +662,7 @@ jobs:
       - node/install-packages:
           app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
+      - run:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuild
@@ -681,6 +682,10 @@ jobs:
       - node/install-packages:
           app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
+      - run:
+          command: | 
+            cd gpt4all-bindings/typescript
+            yarn prebuild
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
