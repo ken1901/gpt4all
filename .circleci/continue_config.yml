@@ -661,10 +661,8 @@ jobs:
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx-x64/native/
             ls -Ra runtimes/
      - run:
-          name: Publish to NPM
           command: |
             npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            # Remove --tag alpha for regular release
             npm publish --access public --tag alpha
 
 workflows:
