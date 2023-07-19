@@ -140,5 +140,5 @@ This package is in active development, and breaking changes may happen until the
 *   \[x] have more people test on other platforms (mac tester needed)
 *   \[x] switch to new pluggable backend
 *   \[ ] NPM bundle size reduction via optionalDependencies strategy (need help) 
-*   \[ ] createChatSession
+*   \[ ] createChatSession ( the python equivalent to create\_chat\_session )
 ### Documentation
