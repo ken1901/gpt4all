@@ -1,10 +1,11 @@
 {
   "name": "gpt4all",
   "version": "2.0.0rc",
-  "packageManager": "yarn@3.5.1",
+  "packageManager": "yarn@3.6.1",
   "main": "src/gpt4all.js",
   "repository": "nomic-ai/gpt4all",
   "scripts": {
+    "install": "node-gyp-build",
     "test": "jest",
     "build:backend": "node scripts/build.js",
     "build": "node-gyp-build",
@@ -14,7 +15,7 @@
     "postdocs:build": "node scripts/docs.js"
   },
   "files": [
-    "src/**/*"   
+    "src/**/*"
   ],
   "dependencies": {
     "md5-file": "^5.0.0",
@@ -28,6 +29,9 @@
     "jest": "^29.5.0",
     "prebuildify": "^5.0.1",
     "prettier": "^2.8.8"
+  },
+  "optionalDependencies": {
+    "node-gyp": "9.x.x"
   },
   "engines": {
     "node": ">= 18.x.x"

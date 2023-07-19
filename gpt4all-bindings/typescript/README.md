@@ -134,6 +134,9 @@ yarn test
     * why your model may be spewing bull 💩 
         - The downloaded model is broken (just reinstall or download from official site)
         - Thats it so far
+    *  Couldn't find a script name "node-gyp" in the top-level
+        - Ensure node-gyp is installed globally.
+        - yarn add -T node-gyp
 ### Roadmap
 
 This package is in active development, and breaking changes may happen until the api stabilizes. Here's what's the todo list:
@@ -145,5 +148,6 @@ This package is in active development, and breaking changes may happen until the
 *   \[x] have more people test on other platforms (mac tester needed)
 *   \[x] switch to new pluggable backend
 *   \[ ] NPM bundle size reduction via optionalDependencies strategy (need help) 
+    - Should include prebuilds to avoid painful node-gyp errors
 *   \[ ] createChatSession ( the python equivalent to create\_chat\_session )
 ### Documentation
