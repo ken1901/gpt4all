@@ -27,7 +27,7 @@
                 'NAPI_CPP_EXCEPTIONS',
             ],
             'cflags_cc': [
-                "-fno-exceptions"
+                "-fexceptions"
             ]
         }],
         ['OS=="win"', {
