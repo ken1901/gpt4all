@@ -651,8 +651,8 @@ jobs:
           paths:
             - typescript/prebuilds/linux-x64/*.node
   build-nodejs-macos: 
-    docker: 
-      - image: cimg/base:stable
+    macos:
+      xcode: "14.0.0"
     steps:
       - checkout
       - node/install:
@@ -669,10 +669,13 @@ jobs:
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
-            - typescript/prebuilds/darwin-*/*.node
+            - typescript/prebuilds/darwin-x64/*.node
+            - typescript/prebuilds/darwin-arm64/*.node
   build-nodejs-windows: 
-    docker: 
-      - image: cimg/base:stable
+    executor:
+      name: win/default
+      size: large
+      shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
       - node/install:
@@ -686,10 +689,11 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuild
+
       - persist_to_workspace:
           root: gpt4all-bindings
           paths:
-            - typescript/prebuilds/win32-x64/*.node
+            - typescript\prebuilds\win32-x64\*.node
 
   prepare-npm-pkg:
     docker: 
@@ -723,8 +727,8 @@ jobs:
             cp /tmp/gpt4all-bindings/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
 
             mkdir -p runtimes/darwin-x64/native
-            cp /tmp/gpt4all-backend/runtimes/darwin-x64/*-*.dylib runtimes/darwin-x64/native/
-            cp /tmp/gpt4all-backend/runtimes/darwin-x64/*.metal runtimes/darwin-x64/native/
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/darwin-x64/native/
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/darwin-x64/native/
             cp /tmp/gpt4all-bindings/typescript/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
 
             mkdir -p runtimes/darwin-arm64/native
