@@ -659,9 +659,10 @@ jobs:
             mkdir -p runtimes/osx-x64/native
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx-x64/native/
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx-x64/native/
-            ls -Ra runtimes/
-     - run:
+            ls -Ra runtimes
+      - run:
           command: |
+            cd gpt4all-bindings/typescript
             npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
             npm publish --access public --tag alpha
 
