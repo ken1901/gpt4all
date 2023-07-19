@@ -678,7 +678,6 @@ jobs:
       shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
-      - run: choco install nodejs --version=18.16.0 -y
       - run: node --version && npm --version
       - run: npm install -g yarn
       - run: 
