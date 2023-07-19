@@ -678,7 +678,7 @@ jobs:
       shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
-      - run: node --version && npm --version
+      - run: node --version 
       - run: npm install -g yarn
       - run: 
           command: |
