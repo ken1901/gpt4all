@@ -13,7 +13,7 @@ The original [GPT4All typescript bindings](https://github.com/nomic-ai/gpt4all-t
 *   New bindings created by [jacoobes](https://github.com/jacoobes) and the [nomic ai community](https://home.nomic.ai), for all to use.
 *   [Documentation](#Documentation)
 
-### Code Completion (alpha)
+### Chat Completion (alpha)
 
 ```js
 import { createCompletion, loadModel } from '../src/gpt4all.js'
@@ -134,9 +134,6 @@ yarn test
     * why your model may be spewing bull 💩 
         - The downloaded model is broken (just reinstall or download from official site)
         - Thats it so far
-    *  Couldn't find a script name "node-gyp" in the top-level
-        - Ensure node-gyp is installed globally.
-        - yarn add -T node-gyp
 ### Roadmap
 
 This package is in active development, and breaking changes may happen until the api stabilizes. Here's what's the todo list:
@@ -144,7 +141,7 @@ This package is in active development, and breaking changes may happen until the
 *   \[x] prompt models via a threadsafe function in order to have proper non blocking behavior in nodejs
 *   \[ ] ~~createTokenStream, an async iterator that streams each token emitted from the model. Planning on following this [example](https://github.com/nodejs/node-addon-examples/tree/main/threadsafe-async-iterator)~~ May not implement unless someone else can complete
 *   \[x] proper unit testing (integrate with circle ci)
-*   \[ ] publish to npm under alpha tag `gpt4all@alpha`
+*   \[x] publish to npm under alpha tag `gpt4all@alpha`
 *   \[x] have more people test on other platforms (mac tester needed)
 *   \[x] switch to new pluggable backend
 *   \[ ] NPM bundle size reduction via optionalDependencies strategy (need help) 
