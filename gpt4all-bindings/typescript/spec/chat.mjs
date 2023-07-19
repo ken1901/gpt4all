@@ -1,4 +1,4 @@
-import { LLModel, createCompletion, DEFAULT_DIRECTORY, DEFAULT_LIBRARIES_DIRECTORY, loadModel, createEmbedding } from '../src/gpt4all.js'
+import { LLModel, createCompletion, DEFAULT_DIRECTORY, DEFAULT_LIBRARIES_DIRECTORY, loadModel } from '../src/gpt4all.js'
 
 const ll = await loadModel(
     'orca-mini-3b.ggmlv3.q4_0.bin',
@@ -43,7 +43,7 @@ console.log(completion2.choices[0].message)
 // Behavior: The last prompt gets answered, but the rest are cancelled
 // my experience with threading is not the best, so if anyone who is good is willing to give this a shot,
 // maybe this is possible
-// afaik threading with llama.cpp is not the best, so this will be left here as reference
+// INFO: threading with llama.cpp is not the best maybe not even possible, so this will be left here as reference
 
 //const responses = await Promise.all([
 //    createCompletion(ll, [ 

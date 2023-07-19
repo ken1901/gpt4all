@@ -161,6 +161,13 @@ declare function createCompletion(
     options?: CompletionOptions
 ): Promise<CompletionReturn>;
 
+
+/**
+ * The nodejs equivalent to python binding's Embed4All().embed()
+ * @param {LLModel} llmodel - The language model object.
+ * @param {string} text - text to embed
+ * @returns {Float32Array} The completion result.
+ */
 declare function createEmbedding(
     llmodel: LLModel,
     text: string,
