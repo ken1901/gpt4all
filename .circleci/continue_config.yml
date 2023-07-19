@@ -678,13 +678,13 @@ jobs:
       shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-          node-version: "18.16"
-      - run: node --version
-      - node/install-packages:
-          app-dir: gpt4all-bindings/typescript
-          pkg-manager: yarn
+      - run: choco install nodejs --version=18.16.0 -y
+      - run: node --version && npm --version
+      - run: npm install -g yarn
+      - run: 
+          command: |
+            cd gpt4all-bindings/typescript
+            yarn install
       - run:
           command: | 
             cd gpt4all-bindings/typescript
