@@ -656,9 +656,9 @@ jobs:
             cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
             mkdir -p runtimes/linux-x64/native 
             cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
-            mkdir -p runtimes/osx/native
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx/native/
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx/native/
+            mkdir -p runtimes/osx-x64/native
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.dylib runtimes/osx-x64/native/
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*.metal runtimes/osx-x64/native/
             ls -Ra runtimes/
 #     - run:
 #          name: Publish to NPM
