@@ -39,9 +39,6 @@ const completion2 = await createCompletion(ll, [
 
 console.log(completion2.choices[0].message)
 
-const embedder = await loadModel("ggml-all-MiniLM-L6-v2-f16.bin", { verbose: true })
-
-console.log(createEmbedding(embedder, "sdfdsfds"))
 // At the moment, from testing this code, concurrent model prompting is not possible. 
 // Behavior: The last prompt gets answered, but the rest are cancelled
 // my experience with threading is not the best, so if anyone who is good is willing to give this a shot,

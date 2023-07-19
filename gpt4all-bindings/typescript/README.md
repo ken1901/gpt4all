@@ -12,12 +12,13 @@ The original [GPT4All typescript bindings](https://github.com/nomic-ai/gpt4all-t
 
 *   New bindings created by [jacoobes](https://github.com/jacoobes) and the [nomic ai community](https://home.nomic.ai), for all to use.
 *   [Documentation](#Documentation)
+
 ### Code Completion (alpha)
 
 ```js
 import { createCompletion, loadModel } from '../src/gpt4all.js'
 
-const ll = await loadModel('ggml-vicuna-7b-1.1-q4_2.bin', { verbose: true });
+const ll = await loadModel('ggml-vicuna-7b-1.1-q4_2', { verbose: true });
 
 const response = await createCompletion(ll, [
     { role : 'system', content: 'You are meant to be annoying and unhelpful.'  },
@@ -33,6 +34,7 @@ const ll = await loadModel('ggml-all-MiniLM-L6-v2-f16', { verbose: true });
 
 const fltArray = createEmbedding(ll, "Pain is inevitable, suffering optional");
 ```
+
 ### API
 
 *   The nodejs api has made strides to mirror the python api. It is not 100% mirrored, but many pieces of the api resemble its python counterpart.
@@ -41,9 +43,10 @@ const fltArray = createEmbedding(ll, "Pain is inevitable, suffering optional");
 
 ### Build Instructions
 
-*   As of 05/21/2023, Tested on windows (MSVC). (somehow got it to work on MSVC 🤯)
-    *   binding.gyp is compile config
+*   binding.gyp is compile config
 *   Tested on Ubuntu. Everything seems to work fine
+*   Tested on Windows. Everything works fine.
+*   Sparse testing on mac os.
 *   MingW works as well to build the gpt4all-backend. **HOWEVER**, this package works only with MSVC built dlls.
 
 ### Requirements
@@ -56,7 +59,7 @@ const fltArray = createEmbedding(ll, "Pain is inevitable, suffering optional");
 *   (unix) gcc version 12
 *   (win) msvc version 143
     *   Can be obtained with visual studio 2022 build tools
-
+*   python 3
 ### Build (from source)
 
 ```sh
