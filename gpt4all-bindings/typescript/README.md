@@ -133,7 +133,7 @@ yarn test
 
     * why your model may be spewing bull 💩 
         - The downloaded model is broken (just reinstall or download from official site)
-        - Thats it so far
+        - That's it so far
 ### Roadmap
 
 This package is in active development, and breaking changes may happen until the api stabilizes. Here's what's the todo list:
