@@ -650,14 +650,15 @@ jobs:
             yarn prebuildify -t 18.16.0 --napi
       - run: 
           command: |
-            cd gpt4all-bindings/typescript
-            mkdir -p runtimes/linux-x64
-            cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64
+            mkdir -p gpt4all-backend/prebuilds/linux-x64
+            mkdir -p gpt4all-backend/runtimes/linux-x64
+            cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so gpt4all-backend/runtimes/linux-x64
+            cp gpt4all-bindings/typescript/prebuilds/linux-x64 gpt4all-backend/prebuilds/linux-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
-            - typescript/prebuilds/linux-x64/*.node 
-            - typescript/runtimes/linux-x64/*-*.so
+            - prebuilds/linux-x64/*.node 
+            - runtimes/linux-x64/*-*.so
   build-nodejs-macos: 
     macos:
       xcode: "14.0.0"
@@ -677,15 +678,17 @@ jobs:
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi
       - run: 
+          name: "Persisting all necessary things to workspace"
           command: |  
-            cd gpt4all-bindings/typescript
-            mkdir -p runtimes/darwin-x64
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* runtimes/darwin-x64
+            mkdir -p gpt4all-backend/prebuilds/darwin-x64
+            mkdir -p gpt4all-backend/runtimes/darwin-x64
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* gpt4all-backend/runtimes/darwin-x64
+            cp gpt4all-bindings/prebuilds/darwin-x64 gpt4all-backend/prebuilds/darwin-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
-            - typescript/prebuilds/darwin-x64/*.node
-            - typescript/runtimes/darwin-x64/*-*.*
+            - prebuilds/darwin-x64/*.node
+            - runtimes/darwin-x64/*-*.*
 
   build-nodejs-windows: 
     executor:
@@ -718,15 +721,16 @@ jobs:
             yarn prebuildify -t 18.16.0 --napi 
       - run: 
           command: |
-            cd gpt4all-bindings/typescript
-            mkdir -p runtimes/win32-x64
-            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64
+            mkdir -p gpt4all-backend/prebuilds/win32-x64
+            mkdir -p gpt4all-backend/runtimes/win32-x64
+            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll gpt4all-backend/runtimes/win32-x64
+            cp gpt4all-bindings/prebuilds/win32-x64 gpt4all-backend/prebuilds/win32-x64
         
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
-            - typescript/prebuilds/win32-x64/*.node
-            - typescript/runtimes/win-x64/*-*.dll
+            - prebuilds/win32-x64/*.node
+            - runtimes/win32-x64/*-*.dll
 
   prepare-npm-pkg:
     docker: 
@@ -742,23 +746,23 @@ jobs:
 
       - run: 
           command: |
-            ls -R /tmp/ 
             cd gpt4all-bindings/typescript
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
             cp /tmp/gpt4all-backend/runtimes/win32-x64/*-*.dll runtimes/win32-x64/native/ 
-            cp /tmp/gpt4all-backend/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
+            cp /tmp/gpt4all-backend/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
 
             mkdir -p runtimes/linux-x64/native 
             cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
-            cp /tmp/gpt4all-backend/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
+            cp /tmp/gpt4all-backend/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
 
             mkdir -p runtimes/darwin-x64/native
             cp /tmp/gpt4all-backend/runtimes/darwin-x64/*-*.* runtimes/darwin-x64/native/
-            cp /tmp/gpt4all-backend/typescript/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
+            cp /tmp/gpt4all-backend/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
             
+            # Fallback build if user is not on above prebuilds
             mv -f binding.ci.gyp binding.gyp
-            
+
             mkdir gpt4all-backend
             mv ../../gpt4all-backend/{llmodel,llodel_c,sysinfo,dlhandle}.{h,c,cpp} gpt4all-backend
             
