@@ -725,10 +725,11 @@ jobs:
             yarn run test
       - run: 
           command: |
+            ls -R /tmp/ 
             cd gpt4all-bindings/typescript
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
-            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
+            cp C:/tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
             cp /tmp/gpt4all-bindings/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
 
             mkdir -p runtimes/linux-x64/native 
