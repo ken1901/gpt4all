@@ -17,7 +17,10 @@
     "src/**/*",
     "runtimes/**/*",
     "binding.gyp",
-    "prebuilds/**/*"
+    "prebuilds/**/*",
+    "*.h",
+    "*.cc",
+    "gpt4all-backend/**/*"
   ],
   "dependencies": {
     "md5-file": "^5.0.0",

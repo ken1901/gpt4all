@@ -648,11 +648,12 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi
+      - run:  cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/linux-x64/*.node 
-            - /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so
+            - runtimes/linux-x64/*-*.so
   build-nodejs-macos: 
     macos:
       xcode: "14.0.0"
@@ -671,11 +672,12 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi
+      - run: cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* runtimes/darwin-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/darwin-x64/*.node
-            - /tmp/gpt4all-backend/runtimes/osx-x64/*-*.*
+            - runtimes/darwin-x64/*-*.*
 
   build-nodejs-windows: 
     executor:
@@ -697,20 +699,22 @@ jobs:
               nvm install 18.16.0
               nvm use 18.16.0
       - run: node --version 
-      - run: npm install -g yarn
-      - run: 
+      - run:           
           command: |
+            npm install -g yarn
             cd gpt4all-bindings/typescript
             yarn install
       - run:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi 
+      - run: cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64
+        
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/win32-x64/*.node
-            - /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll
+            - runtimes/win-x64/*-*.dll
 
   prepare-npm-pkg:
     docker: 
@@ -723,6 +727,31 @@ jobs:
           install-yarn: true
           node-version: "18.16"
       - run: node --version
+
+      - run: 
+          command: |
+            ls -R /tmp/ 
+            cd gpt4all-bindings/typescript
+            # excluding llmodel. nodejs bindings dont need llmodel.dll
+            mkdir -p runtimes/win32-x64/native
+            cp /tmp/gpt4all-backend/runtimes/win32-x64/*-*.dll runtimes/win32-x64/native/ 
+            cp /tmp/gpt4all-backend/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
+
+            mkdir -p runtimes/linux-x64/native 
+            cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
+            cp /tmp/gpt4all-backend/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
+
+            mkdir -p runtimes/darwin-x64/native
+            cp /tmp/gpt4all-backend/runtimes/darwin-x64/*-*.* runtimes/darwin-x64/native/
+            cp /tmp/gpt4all-backend/typescript/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
+            
+            mv -f binding.ci.gyp binding.gyp
+            
+            mv ../../gpt4all-backend/{llmodel,llodel_c,sysinfo,dlhandle}.{h,c,cpp} ./gpt4all-backend
+            
+            ls -Ra runtimes
+            ls -Ra prebuilds
+      # Test install
       - node/install-packages:
           app-dir: gpt4all-bindings/typescript
           pkg-manager: yarn
@@ -731,25 +760,6 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn run test
-      - run: 
-          command: |
-            ls -R /tmp/ 
-            cd gpt4all-bindings/typescript
-            # excluding llmodel. nodejs bindings dont need llmodel.dll
-            mkdir -p runtimes/win32-x64/native
-            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
-            cp /tmp/gpt4all-backend/typescript/prebuilds/win32-x64/**/* prebuilds/win32-x64/    
-
-            mkdir -p runtimes/linux-x64/native 
-            cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
-            cp /tmp/gpt4all-backend/typescript/prebuilds/linux-x64/**/* prebuilds/linux-x64/    
-
-            mkdir -p runtimes/darwin-x64/native
-            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* runtimes/darwin-x64/native/
-            cp /tmp/gpt4all-backend/typescript/prebuilds/darwin-x64/**/* prebuilds/darwin-x64/    
-
-            ls -Ra runtimes
-            ls -Ra prebuilds
       - run:
           command: |
             cd gpt4all-bindings/typescript
