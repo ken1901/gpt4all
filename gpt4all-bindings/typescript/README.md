@@ -10,7 +10,7 @@ pnpm install gpt4all@alpha
 
 The original [GPT4All typescript bindings](https://github.com/nomic-ai/gpt4all-ts) are now out of date.
 
-*   New bindings created by [jacoobes](https://github.com/jacoobes) and the [nomic ai community](https://home.nomic.ai), for all to use.
+*   New bindings created by [jacoobes](https://github.com/jacoobes), [limez](https://github.com/iimez) and the [nomic ai community](https://home.nomic.ai), for all to use.
 *   [Documentation](#Documentation)
 
 ### Chat Completion (alpha)
