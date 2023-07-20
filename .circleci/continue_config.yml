@@ -648,7 +648,11 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi
-      - run:  cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64
+      - run: 
+          command: |
+            cd gpt4all-bindings/typescript
+            mkdir -p runtimes/linux-x64
+            cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
@@ -672,7 +676,11 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi
-      - run: cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* runtimes/darwin-x64
+      - run: 
+          command: |  
+            cd gpt4all-bindings/typescript
+            mkdir -p runtimes/darwin-x64
+            cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* runtimes/darwin-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
@@ -708,7 +716,11 @@ jobs:
           command: | 
             cd gpt4all-bindings/typescript
             yarn prebuildify -t 18.16.0 --napi 
-      - run: cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64
+      - run: 
+          command: |
+            cd gpt4all-bindings/typescript
+            mkdir -p runtimes/win32-x64
+            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64
         
       - persist_to_workspace:
           root: gpt4all-backend
@@ -747,7 +759,8 @@ jobs:
             
             mv -f binding.ci.gyp binding.gyp
             
-            mv ../../gpt4all-backend/{llmodel,llodel_c,sysinfo,dlhandle}.{h,c,cpp} ./gpt4all-backend
+            mkdir gpt4all-backend
+            mv ../../gpt4all-backend/{llmodel,llodel_c,sysinfo,dlhandle}.{h,c,cpp} gpt4all-backend
             
             ls -Ra runtimes
             ls -Ra prebuilds
