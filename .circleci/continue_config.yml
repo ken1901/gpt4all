@@ -636,7 +636,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/gpt4all-backend
       - node/install:
           install-yarn: true
           node-version: "18.16"
@@ -660,7 +660,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/gpt4all-backend
       - node/install:
           install-yarn: true
           node-version: "18.16"
@@ -687,7 +687,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/gpt4all-backend
       - run: choco install wget -y
       - run:
          command: wget https://nodejs.org/dist/v18.16.0/node-v18.16.0-x86.msi -P C:\Users\circleci\Downloads\
