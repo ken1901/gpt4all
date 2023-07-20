@@ -657,7 +657,7 @@ jobs:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/linux-x64/*.node 
-            - runtimes/linux-x64/*-*.so
+            - typescript/runtimes/linux-x64/*-*.so
   build-nodejs-macos: 
     macos:
       xcode: "14.0.0"
@@ -685,7 +685,7 @@ jobs:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/darwin-x64/*.node
-            - runtimes/darwin-x64/*-*.*
+            - typescript/runtimes/darwin-x64/*-*.*
 
   build-nodejs-windows: 
     executor:
@@ -726,7 +726,7 @@ jobs:
           root: gpt4all-backend
           paths:
             - typescript/prebuilds/win32-x64/*.node
-            - runtimes/win-x64/*-*.dll
+            - typescript/runtimes/win-x64/*-*.dll
 
   prepare-npm-pkg:
     docker: 
