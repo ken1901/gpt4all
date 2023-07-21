@@ -746,6 +746,7 @@ jobs:
 
       - run: 
           command: |
+            ls -R /tmp/
             cd gpt4all-bindings/typescript
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
