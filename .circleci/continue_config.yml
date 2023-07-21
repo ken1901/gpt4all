@@ -748,14 +748,17 @@ jobs:
             cd gpt4all-bindings/typescript
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
+            mkdir -p prebuilds/win32-x64/
             cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
             cp /tmp/gpt4all-backend/prebuilds/win32-x64/*.node prebuilds/win32-x64/    
 
             mkdir -p runtimes/linux-x64/native 
+            mkdir -p prebuilds/linux-x64/
             cp /tmp/gpt4all-backend/runtimes/linux-x64/*-*.so runtimes/linux-x64/native/ 
             cp /tmp/gpt4all-backend/prebuilds/linux-x64/*.node prebuilds/linux-x64/    
 
             mkdir -p runtimes/darwin-x64/native
+            mkdir -p prebuilds/darwin-x64/
             cp /tmp/gpt4all-backend/runtimes/darwin-x64/*-*.* runtimes/darwin-x64/native/
             cp /tmp/gpt4all-backend/prebuilds/darwin-x64/*.node prebuilds/darwin-x64/    
             
