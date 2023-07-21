@@ -683,7 +683,7 @@ jobs:
             mkdir -p gpt4all-backend/prebuilds/darwin-x64
             mkdir -p gpt4all-backend/runtimes/darwin-x64
             cp /tmp/gpt4all-backend/runtimes/osx-x64/*-*.* gpt4all-backend/runtimes/darwin-x64
-            cp gpt4all-bindings/prebuilds/darwin-x64/*.node gpt4all-backend/prebuilds/darwin-x64
+            cp gpt4all-bindings/typescript/prebuilds/darwin-x64/*.node gpt4all-backend/prebuilds/darwin-x64
       - persist_to_workspace:
           root: gpt4all-backend
           paths:
@@ -724,7 +724,7 @@ jobs:
             mkdir -p gpt4all-backend/prebuilds/win32-x64
             mkdir -p gpt4all-backend/runtimes/win32-x64
             cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll gpt4all-backend/runtimes/win32-x64
-            cp gpt4all-bindings/prebuilds/win32-x64/*.node gpt4all-backend/prebuilds/win32-x64
+            cp gpt4all-bindings/typescript/prebuilds/win32-x64/*.node gpt4all-backend/prebuilds/win32-x64
         
       - persist_to_workspace:
           root: gpt4all-backend
