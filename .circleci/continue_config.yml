@@ -743,14 +743,12 @@ jobs:
           install-yarn: true
           node-version: "18.16"
       - run: node --version
-
       - run: 
           command: |
-            ls -R /tmp/
             cd gpt4all-bindings/typescript
             # excluding llmodel. nodejs bindings dont need llmodel.dll
             mkdir -p runtimes/win32-x64/native
-            cp /tmp/gpt4all-backend/runtimes/win32-x64/*-*.dll runtimes/win32-x64/native/ 
+            cp /tmp/gpt4all-backend/runtimes/win-x64_msvc/*-*.dll runtimes/win32-x64/native/ 
             cp /tmp/gpt4all-backend/prebuilds/win32-x64/*.node prebuilds/win32-x64/    
 
             mkdir -p runtimes/linux-x64/native 
